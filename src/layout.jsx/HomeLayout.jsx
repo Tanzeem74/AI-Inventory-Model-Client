@@ -7,11 +7,11 @@ import Footer from '../components/Footer';
 const HomeLayout = () => {
     const {state}=useNavigation();
     return (
-        <div>
+        <div className=''>
             <header>
                 <Navbar></Navbar>
             </header>
-            <main>
+            <main className='min-h-screen'>
                 {state == 'loading' ? <Loading></Loading> : <Outlet></Outlet>}
             </main>
             <footer>

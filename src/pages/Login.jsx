@@ -48,9 +48,9 @@ const Login = () => {
     }
     return (
         <div className='flex justify-center min-h-screen items-center'>
-            <div className="card bg-linear-to-r from-cyan-400 via-sky-500 to-teal-500
+            <div className="card 
                 w-full max-w-sm shrink-0 shadow-2xl py-5">
-                <h2 className='font-semibold text-2xl text-center'>Login to your account</h2>
+                <h2 className='font-bold text-2xl text-center'>Login to AI <br /> Model Inventory</h2>
                 <form onSubmit={handleLogin} className="card-body">
                     <fieldset className="fieldset">
                         <label className="label">Email</label>
@@ -71,7 +71,7 @@ const Login = () => {
                         <Link to='/auth/forget-pass' ><a className="link link-hover">Forgot password?</a></Link>
 
                         {error && <p className='text-red-500 text-xs font-semibold'>{error}</p>}
-                        <button type='submit' className="btn btn-neutral mt-4">Login</button>
+                        <button type='submit' className="btn bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-medium shadow-md">Login</button>
                         <p className='text-center'>or</p>
                         <button onClick={handleLoginGoogle} className='btn btn-outline border-0 w-full bg-base-100'> <FcGoogle size={25} /> Login with Google</button>
                         <p className='font-semibold text-center mt-4'>Don't have an account? <Link className='text-red-500 font-semibold' to='/auth/register' >Register</Link> </p>
