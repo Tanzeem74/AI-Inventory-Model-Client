@@ -5,11 +5,18 @@ import AuthLayout from "../layout.jsx/AuthLayout";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import ForgetPassword from "../pages/ForgetPassword";
+import Home from "../components/Home";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <HomeLayout></HomeLayout>,
+    children:[
+      {
+        path:'/',
+        element:<Home></Home>
+      }
+    ]
   },
   {
     path: '/auth',
