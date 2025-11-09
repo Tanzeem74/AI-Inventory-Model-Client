@@ -8,6 +8,9 @@ import ForgetPassword from "../pages/ForgetPassword";
 import Home from "../components/Home";
 import AllModel from "../pages/AllModel";
 import Loading from "../pages/Loading";
+import PrivateRoute from "../provider/PrivateRoute";
+import ModelDetails from "../pages/ModelDetails";
+import AddModel from "../pages/AddModel";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +28,14 @@ const router = createBrowserRouter([
         element:<AllModel></AllModel>,
         loader:()=>fetch('http://localhost:3000/models'),
         hydrateFallbackElement:<Loading></Loading>
+      },
+      {
+        path:'/add-model',
+        element:<PrivateRoute><AddModel></AddModel></PrivateRoute>
+      },
+      {
+        path:`/model/:_id`,
+        element:<PrivateRoute><ModelDetails></ModelDetails></PrivateRoute>
       }
     ]
   },
