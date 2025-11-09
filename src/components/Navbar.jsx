@@ -105,7 +105,7 @@ const Navbar = () => {
                                 >
                                     <img
                                         // "https://i.ibb.co/3kfzYy8/default-avatar.png"
-                                        src={user.photoURL}
+                                        src={user?.photoURL}
                                         alt=""
                                         className="w-8 h-8 rounded-full border"
                                     />
@@ -118,7 +118,7 @@ const Navbar = () => {
                                     <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-slate-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-50">
                                         <div className="px-4 py-2 border-b dark:border-gray-700">
                                             <p className="text-sm font-semibold text-gray-800 dark:text-gray-200">
-                                                {user.displayName || "User"}
+                                                {user?.displayName || "User"}
                                             </p>
                                             <p className="text-xs text-gray-500">{user.email}</p>
                                         </div>

@@ -15,7 +15,7 @@ const Register = () => {
         setShow(!show);
     }
     const navigate = useNavigate();
-    const { createUser, setUser, updatedUser } = use(AuthContext);
+    const { createUser, updateUser } = use(AuthContext);
     const handleRegister = (e) => {
         e.preventDefault();
         const name = e.target.name.value;
@@ -30,22 +30,15 @@ const Register = () => {
         }
 
         createUser(email, password)
-            .then((result) => {
-                const user = result.user;
-                navigate('/');
-                toast('Account Created Successfully');
-                updatedUser({ displayName: name, photoURL: photo })
+            .then(() => {
+                updateUser({ displayName: name, photoURL: photo })
                     .then(() => {
-                        setUser({ ...user, displayName: name, photoURL: photo });
+                        toast.success("Account created successfully!");
                         navigate('/');
                     })
-                    .catch(() => {
-                        setUser(user);
-                    });
+                    .catch((err) => toast.error(err.message));
             })
-            .catch((err) => {
-                toast(err.message);
-            });
+            .catch((err) => toast.error(err.message));
     }
     return (
         <div className='flex justify-center min-h-screen items-center'>
