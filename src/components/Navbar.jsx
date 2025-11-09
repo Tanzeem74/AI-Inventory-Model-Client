@@ -71,25 +71,27 @@ const Navbar = () => {
                             </NavLink>
 
                             <NavLink
-                                to="/add-model"
+                                to="/all-model"
                                 className={({ isActive }) =>
                                     isActive
                                         ? "text-blue-600 border-b-2 border-blue-600"
                                         : "text-gray-700 hover:text-blue-600"
                                 }
                             >
-                                Add Model
+                                All Model
                             </NavLink>
-                            <NavLink
-                                to="/models"
-                                className={({ isActive }) =>
-                                    isActive
-                                        ? "text-blue-600 border-b-2 border-blue-600"
-                                        : "text-gray-700 hover:text-blue-600"
-                                }
-                            >
-                                All Models
-                            </NavLink>
+                            {user &&
+                                <NavLink
+                                    to="/add-model"
+                                    className={({ isActive }) =>
+                                        isActive
+                                            ? "text-blue-600 border-b-2 border-blue-600"
+                                            : "text-gray-700 hover:text-blue-600"
+                                    }
+                                >
+                                    Add Models
+                                </NavLink>
+                            }
                         </div>
                     </ul>
                 </div>

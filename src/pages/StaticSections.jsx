@@ -6,7 +6,7 @@ const StaticSections = () => {
   return (
     <div className="bg-gray-50 dark:bg-slate-900 dark:text-gray-200">
       <section className="max-w-7xl mx-auto px-6 py-16 text-center">
-        <h2 className="text-3xl sm:text-4xl font-extrabold text-blue-600 mb-6">
+        <h2 className="text-2xl font-bold text-blue-500 mb-6">
           About AI Models
         </h2>
         <p className="max-w-3xl mx-auto text-lg text-gray-700 dark:text-gray-300 mb-10">

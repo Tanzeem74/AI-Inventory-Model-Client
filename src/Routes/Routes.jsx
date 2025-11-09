@@ -6,6 +6,7 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import ForgetPassword from "../pages/ForgetPassword";
 import Home from "../components/Home";
+import AllModel from "../pages/AllModel";
 
 const router = createBrowserRouter([
   {
@@ -14,7 +15,13 @@ const router = createBrowserRouter([
     children:[
       {
         path:'/',
-        element:<Home></Home>
+        element:<Home></Home>,
+        loader:()=>fetch('http://localhost:3000/latest-model')
+      },
+      {
+        path:'/all-model',
+        element:<AllModel></AllModel>,
+        loader:()=>fetch('http://localhost:3000/models')
       }
     ]
   },
