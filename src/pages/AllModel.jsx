@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useLoaderData } from 'react-router';
 import CardAll from '../components/CardAll';
 
 const AllModel = () => {
     const data = useLoaderData();
     //console.log(data);
+    useEffect(() => {
+        document.title = "All Model";
+    }, []);
     return (
         <div className='container mx-auto '>
             <div className='flex flex-col justify-center items-center my-5'>

@@ -7,6 +7,7 @@ import Register from "../pages/Register";
 import ForgetPassword from "../pages/ForgetPassword";
 import Home from "../components/Home";
 import AllModel from "../pages/AllModel";
+import Loading from "../pages/Loading";
 
 const router = createBrowserRouter([
   {
@@ -16,12 +17,14 @@ const router = createBrowserRouter([
       {
         path:'/',
         element:<Home></Home>,
-        loader:()=>fetch('http://localhost:3000/latest-model')
+        loader:()=>fetch('http://localhost:3000/latest-model'),
+        hydrateFallbackElement:<Loading></Loading>
       },
       {
         path:'/all-model',
         element:<AllModel></AllModel>,
-        loader:()=>fetch('http://localhost:3000/models')
+        loader:()=>fetch('http://localhost:3000/models'),
+        hydrateFallbackElement:<Loading></Loading>
       }
     ]
   },
