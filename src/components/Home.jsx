@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
-import Banner from '../pages/Banner';
 import Slider from '../pages/Slider';
+import StaticSections from '../pages/StaticSections';
+
 
 const Home = () => {
     useEffect(() => {
@@ -8,8 +9,10 @@ const Home = () => {
     }, []);
     return (
         <div>
-            <Banner></Banner>
-            <Slider></Slider>
+            <div className='my-5'>
+                <Slider></Slider>
+            </div>
+            <StaticSections></StaticSections>
         </div>
     );
 };
