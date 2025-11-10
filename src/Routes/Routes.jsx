@@ -11,33 +11,44 @@ import Loading from "../pages/Loading";
 import PrivateRoute from "../provider/PrivateRoute";
 import ModelDetails from "../pages/ModelDetails";
 import AddModel from "../pages/AddModel";
+import UpdateModel from "../pages/UpdateModel";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <HomeLayout></HomeLayout>,
-    children:[
+    children: [
       {
-        path:'/',
-        element:<Home></Home>,
-        loader:()=>fetch('http://localhost:3000/latest-model'),
-        hydrateFallbackElement:<Loading></Loading>
+        path: '/',
+        element: <Home></Home>,
+        loader: () => fetch('http://localhost:3000/latest-model'),
+        hydrateFallbackElement: <Loading></Loading>
       },
       {
-        path:'/all-model',
-        element:<AllModel></AllModel>,
-        loader:()=>fetch('http://localhost:3000/models'),
-        hydrateFallbackElement:<Loading></Loading>
+        path: '/all-model',
+        element: <AllModel></AllModel>,
+        loader: () => fetch('http://localhost:3000/models'),
+        hydrateFallbackElement: <Loading></Loading>
       },
       {
-        path:'/add-model',
-        element:<PrivateRoute><AddModel></AddModel></PrivateRoute>
+        path: '/add-model',
+        element: <PrivateRoute><AddModel></AddModel></PrivateRoute>
       },
       {
-        path:`/model/:id`,
-        element:<PrivateRoute><ModelDetails></ModelDetails></PrivateRoute>,
-        loader:({params})=>fetch(`http://localhost:3000/models/${params.id}`),
-        hydrateFallbackElement:<Loading></Loading>
+        path: '/model/:id',
+        element: <PrivateRoute>
+          <ModelDetails></ModelDetails>
+        </PrivateRoute>,
+        loader: ({ params }) => fetch(`http://localhost:3000/models/${params.id}`),
+        hydrateFallbackElement: <Loading></Loading>
+      },
+      {
+        path: '/update-model/:id',
+        element: <PrivateRoute>
+          <UpdateModel></UpdateModel>
+        </PrivateRoute>,
+        loader: ({ params }) => fetch(`http://localhost:3000/models/${params.id}`),
+        hydrateFallbackElement: <Loading></Loading>
       }
     ]
   },
@@ -54,8 +65,8 @@ const router = createBrowserRouter([
         element: <Register></Register>
       },
       {
-        path:'/auth/forget-pass',
-        element:<ForgetPassword></ForgetPassword>
+        path: '/auth/forget-pass',
+        element: <ForgetPassword></ForgetPassword>
       }
     ]
   },

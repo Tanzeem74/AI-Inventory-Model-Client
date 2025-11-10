@@ -1,8 +1,11 @@
-import React from "react";
-import { useLoaderData } from "react-router";
+import React, { useEffect } from "react";
+import { Link, useLoaderData } from "react-router";
 
 const ModelDetails = () => {
     const data = useLoaderData();
+    useEffect(() => {
+            document.title = "Model Details";
+        }, []);
     console.log(data)
     return (
         <div className="max-w-6xl mx-auto p-6">
@@ -34,7 +37,7 @@ const ModelDetails = () => {
                         <p className="py-4">{data.description}</p>
                         <div className="flex flex-wrap items-center gap-3 mt-4">
                             <button className="btn btn-primary">Purchase Model</button>
-                            <button className="btn btn-outline">Edit</button>
+                            <Link to={`/update-model/${data._id}`} className="btn btn-outline">Edit</Link>
                             <button className="btn btn-error">Delete</button>
                             <div className="ml-2 text-sm">
                                 <span className="font-medium">Purchased:</span>{data.purchased}
