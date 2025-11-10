@@ -1,12 +1,47 @@
 import React, { useEffect } from "react";
-import { Link, useLoaderData } from "react-router";
+import { Link, useLoaderData, useNavigate } from "react-router";
+import Swal from "sweetalert2";
 
 const ModelDetails = () => {
     const data = useLoaderData();
     useEffect(() => {
-            document.title = "Model Details";
-        }, []);
-    console.log(data)
+        document.title = "Model Details";
+    }, []);
+    //console.log(data)
+    const navigate = useNavigate();
+    const handleDelete = () => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`http://localhost:3000/models/${data._id}`, {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        Swal.fire({
+                            title: "Deleted!",
+                            text: "Your file has been deleted.",
+                            icon: "success"
+                        });
+                        navigate('/all-model');
+                        console.log(data);
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+            }
+        });
+    }
     return (
         <div className="max-w-6xl mx-auto p-6">
             <div className="hero bg-base-200 rounded-lg p-6">
@@ -38,7 +73,7 @@ const ModelDetails = () => {
                         <div className="flex flex-wrap items-center gap-3 mt-4">
                             <button className="btn btn-primary">Purchase Model</button>
                             <Link to={`/update-model/${data._id}`} className="btn btn-outline">Edit</Link>
-                            <button className="btn btn-error">Delete</button>
+                            <button onClick={handleDelete} className="btn btn-error">Delete</button>
                             <div className="ml-2 text-sm">
                                 <span className="font-medium">Purchased:</span>{data.purchased}
                             </div>

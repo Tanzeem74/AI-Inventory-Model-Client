@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import Slider from '../pages/Slider';
 import StaticSections from '../pages/StaticSections';
 import FeatureModel from '../pages/FeatureModel';
-import { useLoaderData } from 'react-router';
+import { Link, useLoaderData } from 'react-router';
 
 
 const Home = () => {
@@ -17,6 +17,9 @@ const Home = () => {
             </div>
             <StaticSections></StaticSections>
             <FeatureModel latestData={latestData}></FeatureModel>
+            <div className='text-center'>
+                <Link to='/all-model' className='bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-medium shadow-md'>See all Models</Link>
+            </div>
         </div>
     );
 };
