@@ -1,15 +1,31 @@
-import React, { useEffect } from 'react';
+import React, { use, useEffect, useState } from 'react';
 
 import { AuthContext } from '../provider/AuthContext';
 import { toast } from 'react-toastify';
-import { useLoaderData, useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { SquarePen } from 'lucide-react';
+import Loading from './Loading';
 
 const AddModel = () => {
     useEffect(() => {
         document.title = "Add new model";
     }, []);
-    const data=useLoaderData();
+    const {id}=useParams();
+    const {user}=use(AuthContext);
+    const [data,setData]=useState([]);
+    const [loading,setLoading]=useState(true);
+    useEffect(() => {
+            fetch(`http://localhost:3000/models/${id}`, {
+                headers: {
+                    authorization: `Bearer ${user.accessToken}`,
+                },
+            })
+                .then(res => res.json())
+                .then(data => {
+                    setData(data);
+                    setLoading(false);
+                })
+        }, [id, user])
     const navigate = useNavigate();
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -25,6 +41,7 @@ const AddModel = () => {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
+                authorization: `Bearer ${user.accessToken}`
             },
             body: JSON.stringify(formData)
         })
@@ -38,6 +55,9 @@ const AddModel = () => {
                 console.log(err)
             })
     };
+    if(loading){
+        return <Loading></Loading>
+    }
     return (
         <div className="min-h-screen bg-white text-gray-800 px-4 py-12">
             <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow-md p-8 border border-gray-100">
@@ -47,7 +67,6 @@ const AddModel = () => {
                     <h2 className="text-2xl font-bold text-blue-500">Update your model</h2>
                 </div>
 
-                {/* Form */}
                 <form onSubmit={handleSubmit} className="space-y-6">
                     <div>
                         <label className="block font-medium text-gray-700 mb-1">Model Name</label>

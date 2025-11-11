@@ -46,8 +46,6 @@ const router = createBrowserRouter([
         element: <PrivateRoute>
           <UpdateModel></UpdateModel>
         </PrivateRoute>,
-        loader: ({ params }) => fetch(`http://localhost:3000/models/${params.id}`),
-        hydrateFallbackElement: <Loading></Loading>
       },
       {
         path:'/my-model',
