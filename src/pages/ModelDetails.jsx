@@ -1,12 +1,30 @@
-import React, { useEffect } from "react";
-import { Link, useLoaderData, useNavigate } from "react-router";
+import React, { use, useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router";
 import Swal from "sweetalert2";
+import Loading from "./Loading";
+import { AuthContext } from "../provider/AuthContext";
 
 const ModelDetails = () => {
-    const data = useLoaderData();
+    const {id}=useParams();
+    const {user}=use(AuthContext);
     useEffect(() => {
         document.title = "Model Details";
     }, []);
+    const [data,setData]=useState([]);
+    const [loading,setLoading]=useState(true);
+    useEffect(()=>{
+        fetch(`http://localhost:3000/models/${id}`,{
+            headers:{
+                authorization: `Bearer ${user.accessToken}`
+            }
+        })
+        .then(res=>res.json())
+        .then(data=>{
+            console.log(data);
+            setData(data);
+            setLoading(false)
+        })
+    },[id,user])
     //console.log(data)
     const navigate = useNavigate();
     const handleDelete = () => {
@@ -41,6 +59,9 @@ const ModelDetails = () => {
                     })
             }
         });
+    }
+    if(loading){
+        return <Loading></Loading>
     }
     return (
         <div className="max-w-6xl mx-auto p-6">

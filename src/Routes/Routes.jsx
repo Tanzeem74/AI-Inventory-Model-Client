@@ -12,6 +12,7 @@ import PrivateRoute from "../provider/PrivateRoute";
 import ModelDetails from "../pages/ModelDetails";
 import AddModel from "../pages/AddModel";
 import UpdateModel from "../pages/UpdateModel";
+import MyModel from "../pages/MyModel";
 
 const router = createBrowserRouter([
   {
@@ -39,8 +40,6 @@ const router = createBrowserRouter([
         element: <PrivateRoute>
           <ModelDetails></ModelDetails>
         </PrivateRoute>,
-        loader: ({ params }) => fetch(`http://localhost:3000/models/${params.id}`),
-        hydrateFallbackElement: <Loading></Loading>
       },
       {
         path: '/update-model/:id',
@@ -49,6 +48,12 @@ const router = createBrowserRouter([
         </PrivateRoute>,
         loader: ({ params }) => fetch(`http://localhost:3000/models/${params.id}`),
         hydrateFallbackElement: <Loading></Loading>
+      },
+      {
+        path:'/my-model',
+        element:<PrivateRoute>
+          <MyModel></MyModel>
+        </PrivateRoute>
       }
     ]
   },
