@@ -5,26 +5,26 @@ import Loading from "./Loading";
 import { AuthContext } from "../provider/AuthContext";
 
 const ModelDetails = () => {
-    const {id}=useParams();
-    const {user}=use(AuthContext);
+    const { id } = useParams();
+    const { user } = use(AuthContext);
     useEffect(() => {
         document.title = "Model Details";
     }, []);
-    const [data,setData]=useState([]);
-    const [loading,setLoading]=useState(true);
-    useEffect(()=>{
-        fetch(`http://localhost:3000/models/${id}`,{
-            headers:{
+    const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+        fetch(`http://localhost:3000/models/${id}`, {
+            headers: {
                 authorization: `Bearer ${user.accessToken}`
             }
         })
-        .then(res=>res.json())
-        .then(data=>{
-            console.log(data);
-            setData(data);
-            setLoading(false)
-        })
-    },[id,user])
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                setData(data);
+                setLoading(false)
+            })
+    }, [id, user])
     //console.log(data)
     const navigate = useNavigate();
     const handleDelete = () => {
@@ -60,9 +60,10 @@ const ModelDetails = () => {
             }
         });
     }
-    if(loading){
+    if (loading) {
         return <Loading></Loading>
     }
+    const isOwner = user?.email === data.createdBy;
     return (
         <div className="max-w-6xl mx-auto p-6">
             <div className="hero bg-base-200 rounded-lg p-6">
@@ -93,8 +94,16 @@ const ModelDetails = () => {
                         <p className="py-4">{data.description}</p>
                         <div className="flex flex-wrap items-center gap-3 mt-4">
                             <button className="btn btn-primary">Purchase Model</button>
-                            <Link to={`/update-model/${data._id}`} className="btn btn-outline">Edit</Link>
-                            <button onClick={handleDelete} className="btn btn-error">Delete</button>
+                            <button
+                                className={`btn btn-outline ${!isOwner ? "btn-disabled" : ""}`}
+                                title={!isOwner ? "Only creator can edit" : ""}
+                                onClick={() => isOwner && navigate(`/update-model/${data._id}`)}
+                            >Edit</button>
+                            <button
+                                className={`btn btn-error ${!isOwner ? "btn-disabled" : ""}`}
+                                title={!isOwner ? "Only creator can delete" : ""}
+                                onClick={handleDelete}
+                            >Delete</button>
                             <div className="ml-2 text-sm">
                                 <span className="font-medium">Purchased:</span>{data.purchased}
                             </div>
