@@ -17,6 +17,7 @@ const Login = () => {
     const { logIn, loginWithGoogle } = use(AuthContext);
     const location = useLocation();
     const navigate = useNavigate();
+    const from = location.state?.from?.pathname || "/";
     const handleLogin = (e) => {
         e.preventDefault();
         const email = e.target.email.value;
@@ -25,7 +26,7 @@ const Login = () => {
             .then((result) => {
                 const user = result.user;
                 console.log(user);
-                navigate(`${location ? location.state : '/'}`)
+                navigate(from, { replace: true });
                 toast('Login Successfully');
             })
             .catch(() => {

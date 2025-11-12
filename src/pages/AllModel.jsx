@@ -44,7 +44,7 @@ const AllModel = () => {
                 <h1 className='text-2xl font-bold text-blue-500'>All Models</h1>
                 <p className='text-gray-400'>Explore AI models easily</p>
             </div>
-            <div className='my-5 px-5 flex justify-between'>
+            <div className='my-5 px-5 flex flex-col gap-4 sm:flex-row justify-between'>
                 <form onSubmit={handleSearch} className='flex gap-2'>
                     <label className="input">
                         <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">

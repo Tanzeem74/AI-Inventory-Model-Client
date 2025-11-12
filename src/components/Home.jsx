@@ -15,7 +15,9 @@ const Home = () => {
             <div className='my-5'>
                 <Slider></Slider>
             </div>
-            <StaticSections></StaticSections>
+            <div className='container mx-auto'>
+                <StaticSections></StaticSections>
+            </div>
             <FeatureModel latestData={latestData}></FeatureModel>
             <div className='text-center'>
                 <Link to='/all-model' className='bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-medium shadow-md'>See all Models</Link>

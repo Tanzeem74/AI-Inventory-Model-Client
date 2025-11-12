@@ -22,10 +22,11 @@ const Register = () => {
         const password = e.target.password.value;
         const email = e.target.email.value;
         const photo = e.target.photo.value;
-        const passwordPattern = /^(?=.*[A-Z])(?=.*[a-z]).{6,}$/;
+        const passwordPattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[#@$!%*?&]).{6,}$/;
 
         if (!passwordPattern.test(password)) {
-            toast.error("Password must have at least one uppercase, one lowercase letter, and be 6 characters long.");
+            toast.error("Password must have at least 6 characters, including uppercase, lowercase, number, and special character.");
+
             return;
         }
 
