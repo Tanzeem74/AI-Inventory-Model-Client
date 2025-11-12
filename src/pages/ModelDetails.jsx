@@ -16,7 +16,7 @@ const ModelDetails = () => {
     const [refetch, setRefetch] = useState(false);
 
     useEffect(() => {
-        fetch(`http://localhost:3000/models/${id}`, {
+        fetch(`https://my-assignment-server-two.vercel.app/models/${id}`, {
             headers: {
                 authorization: `Bearer ${user.accessToken}`,
             },
@@ -41,7 +41,7 @@ const ModelDetails = () => {
             confirmButtonText: "Yes, delete it!",
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:3000/models/${data._id}`, {
+                fetch(`https://my-assignment-server-two.vercel.app/models/${data._id}`, {
                     method: "DELETE",
                     headers: {
                         "Content-Type": "application/json",
@@ -75,7 +75,7 @@ const ModelDetails = () => {
             created_at: new Date(),
             purchased_by: user.email,
         };
-        fetch(`http://localhost:3000/purchase/${data._id}`, {
+        fetch(`https://my-assignment-server-two.vercel.app/purchase/${data._id}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

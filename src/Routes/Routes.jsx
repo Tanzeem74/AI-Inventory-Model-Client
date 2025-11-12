@@ -23,13 +23,13 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Home></Home>,
-        loader: () => fetch('http://localhost:3000/latest-model'),
+        loader: () => fetch('https://my-assignment-server-two.vercel.app/latest-model'),
         hydrateFallbackElement: <Loading></Loading>
       },
       {
         path: '/all-model',
         element: <AllModel></AllModel>,
-        loader: () => fetch('http://localhost:3000/models'),
+        loader: () => fetch('https://my-assignment-server-two.vercel.app/models'),
         hydrateFallbackElement: <Loading></Loading>
       },
       {

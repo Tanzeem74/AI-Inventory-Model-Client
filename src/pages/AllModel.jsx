@@ -14,7 +14,7 @@ const AllModel = () => {
         e.preventDefault();
         const search_txt = e.target.search.value;
         console.log(search_txt);
-        fetch(`http://localhost:3000/search?search=${search_txt}`)
+        fetch(`https://my-assignment-server-two.vercel.app/search?search=${search_txt}`)
             .then(res => res.json())
             .then(data => {
                 setModel(data);
@@ -28,7 +28,7 @@ const AllModel = () => {
         const selectedFramework = e.target.value;
         setFramework(selectedFramework);
         setLoading(true);
-        fetch(`http://localhost:3000/filter?framework=${selectedFramework}`)
+        fetch(`https://my-assignment-server-two.vercel.app/filter?framework=${selectedFramework}`)
             .then(res => res.json())
             .then(data => {
                 setModel(data);

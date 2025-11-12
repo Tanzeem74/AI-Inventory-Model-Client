@@ -11,7 +11,7 @@ const MyModel = () => {
     const [models, setModels] = useState([]);
     const [loading, setLoading] = useState(true);
     useEffect(() => {
-        fetch(`http://localhost:3000/my-models?email=${user.email}`, {
+        fetch(`https://my-assignment-server-two.vercel.app/my-models?email=${user.email}`, {
             headers: {
                 authorization: `Bearer ${user.accessToken}`,
             },

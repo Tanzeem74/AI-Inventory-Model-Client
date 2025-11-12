@@ -15,7 +15,7 @@ const AddModel = () => {
     const [data,setData]=useState([]);
     const [loading,setLoading]=useState(true);
     useEffect(() => {
-            fetch(`http://localhost:3000/models/${id}`, {
+            fetch(`https://my-assignment-server-two.vercel.app/models/${id}`, {
                 headers: {
                     authorization: `Bearer ${user.accessToken}`,
                 },
@@ -37,7 +37,7 @@ const AddModel = () => {
             description: e.target.description.value,
             image: e.target.image.value,
         }
-        fetch(`http://localhost:3000/models/${data._id}`, {
+        fetch(`https://my-assignment-server-two.vercel.app/models/${data._id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",

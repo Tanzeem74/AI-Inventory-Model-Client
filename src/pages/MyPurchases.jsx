@@ -13,7 +13,7 @@ const MyPurchases = () => {
     const [models, setModels] = useState([]);
     const [loading, setLoading] = useState(true);
     useEffect(() => {
-        fetch(`http://localhost:3000/purchase?email=${user.email}`, {
+        fetch(`https://my-assignment-server-two.vercel.app/purchase?email=${user.email}`, {
             headers: {
                 authorization: `Bearer ${user.accessToken}`,
             },
