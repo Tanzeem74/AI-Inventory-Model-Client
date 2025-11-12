@@ -1,5 +1,5 @@
 🧠 AI Model Inventory Manager
-🌐 Live Site
+🌐 Live Site https://candid-chebakia-c6484d.netlify.app/
 
 🔗 View Live Site
 
@@ -32,12 +32,19 @@ This project provides hands-on experience with authentication, protected routes,
 
 🧩 Tech Stack
 Category	Technology
+
 Frontend	React.js, React Router, Firebase Auth, Toastify
+
 Backend	Node.js, Express.js, Firebase Admin SDK
+
 Database	MongoDB Atlas
+
 Hosting	Netlify (Client), Vercel (Server)
+
 Image Hosting	ImgBB
+
 Auth Provider	Firebase Authentication
+
 
 📚 Page Overview
 Page	Description
@@ -54,6 +61,9 @@ Login / Register -	Firebase authentication (Email/Google).
 🏁 Credits
 
 Developer: Shah Tanzeem Afsar
+
 Project: AI Model Inventory Manager
+
 Assignment ID: B12-A10_category-0014
+
 Instructor: Programming Hero
