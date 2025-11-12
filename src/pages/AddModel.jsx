@@ -42,7 +42,7 @@ const AddModel = () => {
     };
 
     return (
-        <div className="min-h-screen bg-white text-gray-800 px-4 py-12">
+        <div className="min-h-screen bg-base-100 text-gray-800 px-4 py-12">
             <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow-md p-8 border border-gray-100">
                 <div className="flex items-center justify-center mb-8">
                     <div className="bg-blue-100 p-2 rounded-lg mr-3"><Plus className="w-4 h-4 text-blue-500" />

@@ -5,25 +5,37 @@ import Loading from './Loading';
 
 const AllModel = () => {
     const data = useLoaderData();
-    const [model,setModel]=useState(data);
-    const [loading,setLoading]=useState(false);
+    const [model, setModel] = useState(data);
+    const [loading, setLoading] = useState(false);
+    const [framework, setFramework] = useState('');
     //console.log(data);
-    const handleSearch=(e)=>{
-        e.preventDefault();
+    const handleSearch = (e) => {
         setLoading(true);
-        const search_txt=e.target.search.value;
+        e.preventDefault();
+        const search_txt = e.target.search.value;
         console.log(search_txt);
         fetch(`http://localhost:3000/search?search=${search_txt}`)
-        .then(res=>res.json())
-        .then(data=>{
-            setModel(data);
-            setLoading(false);
-        })
+            .then(res => res.json())
+            .then(data => {
+                setModel(data);
+                setLoading(false);
+            })
     }
     useEffect(() => {
         document.title = "All Model";
     }, []);
-    if(loading){
+    const handleFrameworkChange = (e) => {
+        const selectedFramework = e.target.value;
+        setFramework(selectedFramework);
+        setLoading(true);
+        fetch(`http://localhost:3000/filter?framework=${selectedFramework}`)
+            .then(res => res.json())
+            .then(data => {
+                setModel(data);
+                setLoading(false);
+            });
+    };
+    if (loading) {
         return <Loading></Loading>
     }
     return (
@@ -32,7 +44,7 @@ const AllModel = () => {
                 <h1 className='text-2xl font-bold text-blue-500'>All Models</h1>
                 <p className='text-gray-400'>Explore AI models easily</p>
             </div>
-            <div className='my-5 px-5'>
+            <div className='my-5 px-5 flex justify-between'>
                 <form onSubmit={handleSearch} className='flex gap-2'>
                     <label className="input">
                         <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -53,6 +65,18 @@ const AllModel = () => {
                         search
                     </button>
                 </form>
+                <select
+                    value={framework}
+                    onChange={handleFrameworkChange}
+                    className="border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 px-4 py-2 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200">
+                    <option value="">All Frameworks</option>
+                    <option value="TensorFlow">TensorFlow</option>
+                    <option value="PyTorch">PyTorch</option>
+                    <option value="Keras">Keras</option>
+                    <option value="Scikit-learn">Scikit-learn</option>
+                    <option value="Other">Other</option>
+                </select>
+
             </div>
             <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 place-items-center'>
                 {

@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Sun, Moon, ChevronDown } from "lucide-react";
 import { AuthContext } from "../provider/AuthContext";
 import { Link, NavLink } from "react-router";
@@ -6,6 +6,18 @@ import { Link, NavLink } from "react-router";
 const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+    useEffect(() => {
+        const html = document.querySelector("html");
+        html.setAttribute("data-theme", theme);
+        localStorage.setItem("theme", theme);
+    }, [theme]);
+
+
+    const handleTheme = (checked) => {
+        setTheme(checked ? "dark" : "light");
+    };
+
     const handleLogout = () => {
         logOut();
         setIsDropdownOpen(false);
@@ -33,6 +45,16 @@ const Navbar = () => {
                             </NavLink>
 
                             <NavLink
+                                to="/all-model"
+                                className={({ isActive }) =>
+                                    isActive
+                                        ? "text-blue-600 border-b-2 border-blue-600"
+                                        : "text-gray-700 hover:text-blue-600"
+                                }
+                            >
+                                All Model
+                            </NavLink>
+                            <NavLink
                                 to="/add-model"
                                 className={({ isActive }) =>
                                     isActive
@@ -40,17 +62,7 @@ const Navbar = () => {
                                         : "text-gray-700 hover:text-blue-600"
                                 }
                             >
-                                Add Model
-                            </NavLink>
-                            <NavLink
-                                to="/models"
-                                className={({ isActive }) =>
-                                    isActive
-                                        ? "text-blue-600 border-b-2 border-blue-600"
-                                        : "text-gray-700 hover:text-blue-600"
-                                }
-                            >
-                                All Models
+                                Add Models
                             </NavLink>
                         </ul>
                     </div>
@@ -97,8 +109,11 @@ const Navbar = () => {
                 </div>
                 <div className="navbar-end">
                     <div className="flex items-center space-x-4">
-                        {/* Theme Toggle */}
-                        {/* Profile / Login */}
+                        <input
+                            onChange={(e) => handleTheme(e.target.checked)}
+                            type="checkbox"
+                            defaultChecked={localStorage.getItem('theme') === "dark"}
+                            className="toggle" />
                         {user ? (
                             <div className="relative">
                                 <button

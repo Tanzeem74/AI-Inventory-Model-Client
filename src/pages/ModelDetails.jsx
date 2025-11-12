@@ -13,21 +13,22 @@ const ModelDetails = () => {
     }, []);
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [refetch, setRefetch] = useState(false)
+    const [refetch, setRefetch] = useState(false);
+
     useEffect(() => {
         fetch(`http://localhost:3000/models/${id}`, {
             headers: {
-                authorization: `Bearer ${user.accessToken}`
-            }
+                authorization: `Bearer ${user.accessToken}`,
+            },
         })
-            .then(res => res.json())
-            .then(data => {
+            .then((res) => res.json())
+            .then((data) => {
                 console.log(data);
                 setData(data);
-                setLoading(false)
-            })
-    }, [id, user, refetch])
-    //console.log(data)
+                setLoading(false);
+            });
+    }, [id, user, refetch]);
+
     const navigate = useNavigate();
     const handleDelete = () => {
         Swal.fire({
@@ -37,7 +38,7 @@ const ModelDetails = () => {
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
+            confirmButtonText: "Yes, delete it!",
         }).then((result) => {
             if (result.isConfirmed) {
                 fetch(`http://localhost:3000/models/${data._id}`, {
@@ -46,22 +47,23 @@ const ModelDetails = () => {
                         "Content-Type": "application/json",
                     },
                 })
-                    .then(res => res.json())
-                    .then(data => {
+                    .then((res) => res.json())
+                    .then((data) => {
                         Swal.fire({
                             title: "Deleted!",
                             text: "Your file has been deleted.",
-                            icon: "success"
+                            icon: "success",
                         });
-                        navigate('/all-model');
+                        navigate("/all-model");
                         console.log(data);
                     })
-                    .catch(err => {
-                        console.log(err)
-                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
             }
         });
-    }
+    };
+
     const handlePurchase = () => {
         const finalModel = {
             name: data.name,
@@ -74,69 +76,83 @@ const ModelDetails = () => {
             purchased_by: user.email,
         };
         fetch(`http://localhost:3000/purchase/${data._id}`, {
-            method: 'POST',
+            method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(finalModel)
+            body: JSON.stringify(finalModel),
         })
-            .then(res => res.json())
-            .then(data => {
-                //console.log(data)
-                toast.success('Purchased', data)
+            .then((res) => res.json())
+            .then((data) => {
+                toast.success("Purchased", data);
                 setRefetch(!refetch);
-            })
-    }
+            });
+    };
+
     if (loading) {
-        return <Loading></Loading>
+        return <Loading></Loading>;
     }
     const isOwner = user?.email === data.createdBy;
     return (
-        <div className="max-w-6xl mx-auto p-6">
-            <div className="hero bg-base-200 rounded-lg p-6">
-                <div className="hero-content flex-col lg:flex-row-reverse gap-8">
+        <div className="max-w-6xl mx-auto p-4 sm:p-6">
+            <div className="hero bg-base-200 rounded-lg p-4 sm:p-6">
+                <div className="hero-content flex flex-col lg:flex-row-reverse gap-6 lg:gap-8">
                     <img
                         src={data.image}
                         alt=""
-                        className="max-w-xl rounded-lg shadow-2xl object-cover"
+                        className="w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl rounded-lg shadow-2xl object-cover"
                     />
                     <div className="w-full">
-                        <h1 className="text-4xl font-bold text-blue-500 mb-2">{data.name}</h1>
+                        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-blue-500 mb-3">
+                            {data.name}
+                        </h1>
+
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-gray-700 mb-4">
-                            <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                            <div className="bg-white p-3 sm:p-4 rounded-lg shadow-sm border border-gray-100">
                                 <p className="font-semibold text-gray-800">Framework</p>
                                 <p className="mt-1 text-gray-600">{data.framework}</p>
                             </div>
 
-                            <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                            <div className="bg-white p-3 sm:p-4 rounded-lg shadow-sm border border-gray-100">
                                 <p className="font-semibold text-gray-800">Use Case</p>
                                 <p className="mt-1 text-gray-600">{data.useCase}</p>
                             </div>
 
-                            <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                            <div className="bg-white p-3 sm:p-4 rounded-lg shadow-sm border border-gray-100 sm:col-span-2 md:col-span-1">
                                 <p className="font-semibold text-gray-800">Dataset</p>
                                 <p className="mt-1 text-gray-600">{data.dataset}</p>
                             </div>
                         </div>
-                        <p className="py-4">{data.description}</p>
+
+                        <p className="py-2 sm:py-4 text-gray-700 leading-relaxed">
+                            {data.description}
+                        </p>
+
                         <div className="flex flex-wrap items-center gap-3 mt-4">
-                            <button onClick={handlePurchase} className="btn btn-primary">Purchase Model</button>
+                            <button onClick={handlePurchase} className="btn btn-primary">
+                                Purchase Model
+                            </button>
                             <button
-                                className={`btn btn-outline ${!isOwner ? "btn-disabled" : ""}`}
+                                className={`btn btn-outline ${!isOwner ? "btn-disabled" : ""
+                                    }`}
                                 title={!isOwner ? "Only creator can edit" : ""}
                                 onClick={() => isOwner && navigate(`/update-model/${data._id}`)}
-                            >Edit</button>
+                            >
+                                Edit
+                            </button>
                             <button
                                 className={`btn btn-error ${!isOwner ? "btn-disabled" : ""}`}
                                 title={!isOwner ? "Only creator can delete" : ""}
                                 onClick={handleDelete}
-                            >Delete</button>
-                            <div className="ml-2 text-sm">
-                                <span className="font-medium">Purchased:</span>{data.purchase}
+                            >
+                                Delete
+                            </button>
+                            <div className="ml-1 sm:ml-2 text-sm">
+                                <span className="font-medium">Purchased:</span> {data.purchase}
                             </div>
                         </div>
 
-                        <div className="mt-6 text-xs text-gray-500">
+                        <div className="mt-4 sm:mt-6 text-xs text-gray-500">
                             Created by: {data.createdBy}
                         </div>
                     </div>
@@ -144,5 +160,5 @@ const ModelDetails = () => {
             </div>
         </div>
     );
-}
+};
 export default ModelDetails;
