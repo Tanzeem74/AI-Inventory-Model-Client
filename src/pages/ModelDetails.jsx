@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from "react-router";
 import Swal from "sweetalert2";
 import Loading from "./Loading";
 import { AuthContext } from "../provider/AuthContext";
+import { toast } from "react-toastify";
 
 const ModelDetails = () => {
     const { id } = useParams();
@@ -12,6 +13,7 @@ const ModelDetails = () => {
     }, []);
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [refetch, setRefetch] = useState(false)
     useEffect(() => {
         fetch(`http://localhost:3000/models/${id}`, {
             headers: {
@@ -24,7 +26,7 @@ const ModelDetails = () => {
                 setData(data);
                 setLoading(false)
             })
-    }, [id, user])
+    }, [id, user, refetch])
     //console.log(data)
     const navigate = useNavigate();
     const handleDelete = () => {
@@ -60,6 +62,31 @@ const ModelDetails = () => {
             }
         });
     }
+    const handlePurchase = () => {
+        const finalModel = {
+            name: data.name,
+            downloads: data.downloads,
+            createdBy: data.createdBy,
+            framework: data.framework,
+            useCase: data.useCase,
+            image: data.image,
+            created_at: new Date(),
+            purchased_by: user.email,
+        };
+        fetch(`http://localhost:3000/purchase/${data._id}`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(finalModel)
+        })
+            .then(res => res.json())
+            .then(data => {
+                //console.log(data)
+                toast.success('Purchased', data)
+                setRefetch(!refetch);
+            })
+    }
     if (loading) {
         return <Loading></Loading>
     }
@@ -93,7 +120,7 @@ const ModelDetails = () => {
                         </div>
                         <p className="py-4">{data.description}</p>
                         <div className="flex flex-wrap items-center gap-3 mt-4">
-                            <button className="btn btn-primary">Purchase Model</button>
+                            <button onClick={handlePurchase} className="btn btn-primary">Purchase Model</button>
                             <button
                                 className={`btn btn-outline ${!isOwner ? "btn-disabled" : ""}`}
                                 title={!isOwner ? "Only creator can edit" : ""}
@@ -105,7 +132,7 @@ const ModelDetails = () => {
                                 onClick={handleDelete}
                             >Delete</button>
                             <div className="ml-2 text-sm">
-                                <span className="font-medium">Purchased:</span>{data.purchased}
+                                <span className="font-medium">Purchased:</span>{data.purchase}
                             </div>
                         </div>
 
