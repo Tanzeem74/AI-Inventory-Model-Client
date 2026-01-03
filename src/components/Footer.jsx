@@ -17,9 +17,9 @@ const Footer = () => {
           <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-200">Quick Links</h3>
           <ul className="text-gray-600 dark:text-gray-300 text-sm space-y-1">
             <li><a href="/all-model" className="hover:text-blue-500">All Models</a></li>
-            <li><a href="#" className="hover:text-blue-500">Latest Models</a></li>
-            <li><a href="#" className="hover:text-blue-500">My Purchases</a></li>
-            <li><a href="#" className="hover:text-blue-500">Contact</a></li>
+            <li><a href="/help" className="hover:text-blue-500">Help Center</a></li>
+            <li><a href="/purchases" className="hover:text-blue-500">My Purchases</a></li>
+            <li><a href="/contact" className="hover:text-blue-500">Contact</a></li>
           </ul>
         </div>
         <div className="space-y-3">
@@ -43,9 +43,9 @@ const Footer = () => {
           </div>
 
           <div className="flex flex-wrap gap-4 mt-3 text-gray-500 dark:text-gray-400 text-xs">
-            <a href="#" className="hover:underline">Terms & Conditions</a>
-            <a href="#" className="hover:underline">Privacy Policy</a>
-            <a href="#" className="hover:underline">Contact</a>
+            <a href="/privacy" className="hover:underline">Terms & Conditions</a>
+            <a href="/privacy" className="hover:underline">Privacy Policy</a>
+            <a href="/contact" className="hover:underline">Contact</a>
           </div>
         </div>
       </div>

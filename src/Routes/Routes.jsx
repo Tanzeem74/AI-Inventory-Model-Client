@@ -14,6 +14,14 @@ import AddModel from "../pages/AddModel";
 import UpdateModel from "../pages/UpdateModel";
 import MyModel from "../pages/MyModel";
 import MyPurchases from "../pages/MyPurchases";
+import CardSkeleton from "../components/CardSkeleton";
+import DashboardLayout from "../layout.jsx/DashboardLayout";
+import DashboardOverview from "../components/DashboardOverview";
+import Profile from "../pages/Profile";
+import Contact from "../components/ExtraPAge/Contact";
+import Privacy from "../components/ExtraPAge/Privacy";
+import HelpCenter from "../components/ExtraPAge/HelpCenter";
+import About from "../components/ExtraPAge/About";
 
 const router = createBrowserRouter([
   {
@@ -24,13 +32,13 @@ const router = createBrowserRouter([
         path: '/',
         element: <Home></Home>,
         loader: () => fetch('https://my-assignment-server-two.vercel.app/latest-model'),
-        hydrateFallbackElement: <Loading></Loading>
+        hydrateFallbackElement: <CardSkeleton></CardSkeleton>
       },
       {
         path: '/all-model',
         element: <AllModel></AllModel>,
         loader: () => fetch('https://my-assignment-server-two.vercel.app/models'),
-        hydrateFallbackElement: <Loading></Loading>
+        hydrateFallbackElement: <CardSkeleton></CardSkeleton>
       },
       {
         path: '/add-model',
@@ -79,6 +87,39 @@ const router = createBrowserRouter([
         element: <ForgetPassword></ForgetPassword>
       }
     ]
+  },
+  {
+    path:'/dashboard',
+    element:<PrivateRoute>
+      <DashboardLayout></DashboardLayout>
+    </PrivateRoute>,
+    children:[
+      {
+        path:'/dashboard',
+        index:true,
+        element:<DashboardOverview></DashboardOverview>
+      },
+      {
+        path:'profile',
+        element:<Profile></Profile>
+      }
+    ]
+  },
+  {
+    path:'/contact',
+    element:<Contact></Contact>
+  },
+  {
+    path:'privacy',
+    element:<Privacy></Privacy>
+  },
+  {
+    path:'about',
+    element : <About></About>
+  },
+  {
+    path:'help',
+    element:<HelpCenter></HelpCenter>
   },
   {
     path: "/*",

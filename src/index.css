@@ -5,6 +5,12 @@
   themes: light --default, dark --prefersdark;
 }
 
+@plugin "daisyui/theme" {
+  name: "light";
+  default: true;
+  --color-primary: #3B82F6;
+  /* --color-secondary: #F59E0B; */
+}
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 *{

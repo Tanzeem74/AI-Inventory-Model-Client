@@ -21,18 +21,52 @@ const AuthProvider = ({ children }) => {
     }
     const logOut = () => {
         setLoading(true);
+        localStorage.removeItem('access-token');
         return signOut(auth);
     }
     const updateUser = async (updatedData) => {
         if (!auth.currentUser) return;
-        await updateProfile(auth.currentUser, updatedData);
-        setUser({ ...auth.currentUser });
+
+        try {
+            await updateProfile(auth.currentUser, updatedData);
+            setUser({
+                ...auth.currentUser,
+                displayName: updatedData.displayName,
+                photoURL: updatedData.photoURL
+            });
+            await auth.currentUser.reload();
+
+        } catch (error) {
+            console.error("Profile update failed:", error);
+            throw error;
+        }
     };
+    // useEffect(() => {
+    //     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    //         setUser(currentUser);
+    //         setLoading(false);
+    //     });
+    //     return () => {
+    //         unsubscribe();
+    //     };
+    // }, [])
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
-            setLoading(false);
+
+            if (currentUser) {
+                // --- টোকেন ম্যানেজমেন্ট শুরু ---
+                currentUser.getIdToken().then(token => {
+                    localStorage.setItem('access-token', token);
+                    setLoading(false); // টোকেন পাওয়ার পর লোডিং ফলস করা নিরাপদ
+                });
+                // --- টোকেন ম্যানেজমেন্ট শেষ ---
+            } else {
+                localStorage.removeItem('access-token');
+                setLoading(false);
+            }
         });
+
         return () => {
             unsubscribe();
         };
